@@ -1,24 +1,24 @@
 #!/usr/bin/python
-import os
+import os # i used os throughout to navigate and call cmds.
 
 #Global Elite(variables)
-add_oa_valid="0"
-oa_adder=""
+add_oa_valid="0" 
+oa_adder="" # empty string if not changed later it won't add to the cmd
 # Functions
 def fping_txt():
     #print "Set fping range for scan: (192.168.1.0/24 or 192.168.1.0-254)"
     fping_target = raw_input("Set fping range for scan: (192.168.1.0-254)")
     os.system("cd")#Make sure we are in root directory.
     os.system("rm ~/fping.txt") #It will only append to fping.txt this will make it have a fresh file to append to.
-    print "%s has been selected" % fping_target
+    print "%s has been selected" % fping_target # this isn't neccessary just there for me, but tells user what we swept.
     print "fping is running, kickback and chill"
     print "when finished fping will spit out ~/fping.txt"
     os.system("fping -a -g %s >> fping.txt" % (fping_target))
-    print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
+    print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$" # profit, hopefully above worked.
     print "fping should be finished now!"
     print "$$$$$$$$$$$$$$$$$$$$$$$$$$$$$"
     
-def menu():
+def menu():# its just text for user to read a menu
         print "#############################"
         print "#                           #"
         print "#      CHOOSE ARGUMENTS     #"
@@ -37,7 +37,7 @@ def menu():
         print "Anything else to exit."
         print "#############################\n"
 
-def menu_selector():
+def menu_selector(): # return users menu_choice and prints the choices.
     menu_choice = raw_input("Choose from above")
     if menu_choice == "0": print "0.Selected Host Discoverer..."
     elif menu_choice == "1": print "1.Selected Full Scan..."
@@ -47,7 +47,7 @@ def menu_selector():
     else: print "Exiting..."
     return menu_choice
 
-def cmd_list(oa_adder):
+def cmd_list(oa_adder): #for this function i added a print in front of os.system, this was so it just echos the cmd that was ran on the terminal.
     menu_choice = menu_selector()
     os.system("cd")
     if menu_choice == "0": print "nmap -T4 -sn -iL ~/fping.txt %s" % oa_adder;os.system("nmap -T4 -sn -iL ~/fping.txt %s" % oa_adder)
@@ -72,7 +72,7 @@ while valid_choice=="0":
         fping_creator = raw_input("Generate a target list with fping?[y/n]").lower()
         if fping_creator=="y" or fping_creator=="yes": 
                 print "Starting fping" 
-                fping_txt()
+                fping_txt() #calls fping_txt function.
                 valid_choice="1"
         elif fping_creator=="n" or fping_creator=="no": 
                 print "We will not be generating a target list with fping"
@@ -83,29 +83,29 @@ valid_open="0"
 while valid_open=="0":
         open_fping = raw_input("Would you like to edit ~/fping.txt?[y/n]").lower()
         if open_fping == "y" or open_fping=="yes": 
-                raw_input("Opening Vim\nPress [ENTER]")
+                raw_input("Opening Vim\nPress [ENTER]") #lets user know we about to open vim
                 os.system("vim ~/fping.txt")
                 valid_open="1"
         elif open_fping == "n" or open_fping=="no": 
-                print "We won't edit ~/fping.txt"
+                print "We won't edit ~/fping.txt" 
                 valid_open="1"
         else: print "Enter valid choice ('yes', 'y', 'n', 'no')"
         
 valid_oa="0"
 while valid_oa=="0":
-        add_oa = raw_input("Do you want to add NMAP output file?[y/n]").lower()
+        add_oa = raw_input("Do you want to add NMAP output file?[y/n]").lower() #.lower() takes input converts it to lower case
         
         if add_oa == "y" or add_oa=="yes": 
                 name_oa = raw_input("What do you want to name the output file?")
                 valid_oa="1"
                 add_oa_valid="1" #checks later if we should actually add this to cmd
-                oa_adder="-oA " + name_oa
+                oa_adder="-oA " + name_oa#concatenates strings for usage in cmd
         elif add_oa == "n" or add_oa=="no": 
-                print "There will be no output file for NMAP"
-                valid_oa="1"
-        else: print "Enter a valid choice ('yes', 'y', 'n', 'no')"
+                print "There will be no output file for NMAP"#tells user we ain't doin it
+                valid_oa="1"#validates and breaks while
+        else: print "Enter a valid choice ('yes', 'y', 'n', 'no')" #verify and give choices
 
-menu()
-cmd_list(oa_adder)
+menu() # print menu
+cmd_list(oa_adder) # call function pass oa_adder
 
 print "End of script..."
