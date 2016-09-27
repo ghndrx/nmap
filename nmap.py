@@ -70,39 +70,22 @@ print "Start of script..."
 valid_choice="0"
 while valid_choice=="0":
         fping_creator = raw_input("Generate a target list with fping?[y/n]").lower()
-        if fping_creator=="y" or fping_creator=="yes": 
-                print "Starting fping" 
-                fping_txt()
-                valid_choice="1"
-        elif fping_creator=="n" or fping_creator=="no": 
-                print "We will not be generating a target list with fping"
-                valid_choice="1"
+        if fping_creator=="y" or fping_creator=="yes": print "Starting fping";fping_txt();valid_choice="1"
+        elif fping_creator=="n" or fping_creator=="no": print "We will not be generating a target list with fping";valid_choice="1"
         else: print "Enter a valid choice ('yes','y', 'n', 'no')"
 
 valid_open="0"
 while valid_open=="0":
         open_fping = raw_input("Would you like to edit ~/fping.txt?[y/n]").lower()
-        if open_fping == "y" or open_fping=="yes": 
-                raw_input("Opening Vim\nPress [ENTER]")
-                os.system("vim ~/fping.txt")
-                valid_open="1"
-        elif open_fping == "n" or open_fping=="no": 
-                print "We won't edit ~/fping.txt"
-                valid_open="1"
+        if open_fping == "y" or open_fping=="yes": raw_input("Opening Vim\nPress [ENTER]");os.system("vim ~/fping.txt");valid_open="1"
+        elif open_fping == "n" or open_fping=="no": print "We won't edit ~/fping.txt";valid_open="1"
         else: print "Enter valid choice ('yes', 'y', 'n', 'no')"
         
 valid_oa="0"
 while valid_oa=="0":
         add_oa = raw_input("Do you want to add NMAP output file?[y/n]").lower()
-        
-        if add_oa == "y" or add_oa=="yes": 
-                name_oa = raw_input("What do you want to name the output file?")
-                valid_oa="1"
-                add_oa_valid="1" #checks later if we should actually add this to cmd
-                oa_adder="-oA " + name_oa
-        elif add_oa == "n" or add_oa=="no": 
-                print "There will be no output file for NMAP"
-                valid_oa="1"
+        if add_oa == "y" or add_oa=="yes": name_oa = raw_input("What do you want to name the output file?");valid_oa="1";add_oa_valid="1";oa_adder="-oA " + name_oa
+        elif add_oa == "n" or add_oa=="no": print "There will be no output file for NMAP";valid_oa="1"
         else: print "Enter a valid choice ('yes', 'y', 'n', 'no')"
 
 menu()
