@@ -37,12 +37,14 @@ Anything else to exit.
 
 def menuSelector():
     menuChoice = input("Choose from above")
-    if menuChoice == "0": print("0.Selected Host Discoverer...")
-    elif menuChoice == "1": print("1.Selected Full Scan...")
-    elif menuChoice == "2": print("2.Selected TCP Connect...")
-    elif menuChoice == "3": print("3.Selected TCP Violation...")
-    elif menuChoice == "4": print("4.Selected Masscan...")
-    else: print("Exiting...")
+    switch = {
+        "0": "0.Selected Host Discoverer...",
+        "1": "1.Selected Full Scan...",
+        "2": "2.Selected TCP Connect...",
+        "3": "3.Selected TCP Violation...",
+        "4": "4.Selected Masscan..."
+    }
+    print(switch.get(menuChoice, "Exiting..."))
     return menuChoice
 
 def cmdList():
