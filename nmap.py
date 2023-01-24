@@ -1,10 +1,6 @@
 #!/usr/bin/python
 import os
 
-# Global Elite(variables)
-addOaValid = "0" 
-oaAdder = ""
-
 # Functions
 def fpingTxt():
     fpingTarget = input("Set fping range for scan: (192.168.1.0-254)")
@@ -48,10 +44,15 @@ def menuSelector():
     return menuChoice
 
 def cmdList():
+    addOaValid = "0" 
+    oaAdder = ""
     menuChoice = menuSelector()
     os.system("cd")
-    if menuChoice == "0": os.system("nmap -T4 -sn -iL ~/fping.txt %s" % oaAdder)
-    elif menuChoice == "1": os.system("nmap -T4 -p- -iL ~/fping.txt %s" % oaAdder)
-    elif menuChoice == "2": os.system("nmap -T4 -O -sT -sV -iL ~/fping.txt %s" % oaAdder)
-    elif menuChoice == "3": os.system("nmap -T4 -sX -iL ~/fping.txt %s" % oaAdder)
-    elif menuChoice == "4": os.system("masscan -p80 -iL ~/fping.txt %s" % oaAdder)
+    switch = {
+        "0": "nmap -T4 -sn -iL ~/fping.txt %s" % oaAdder,
+        "1": "nmap -T4 -p- -iL ~/fping.txt %s" % oaAdder,
+        "2": "nmap -T4 -O -sT -sV -iL ~/fping.txt %s" % oaAdder,
+        "3": "nmap -T4 -sX -iL ~/fping.txt %s" % oaAdder,
+        "4": "masscan -p80 -iL ~/fping.txt %s" % oaAdder
+    }
+    os.system(switch.get(menuChoice, ""))
